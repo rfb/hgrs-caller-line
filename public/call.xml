@@ -1,4 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Response>
-  <Say>Hello, world!</Say>
+  <Say>Hi! Thank you for calling the H G R S listener line. Please leave a message and we'll try to include it in our next broadcast!</Say>
+  <Record playBeep="true" maxLength="300" />
+  <Say>Thank you for calling and supporting the radio society</Say>
+  <Hangup />
 </Response>
