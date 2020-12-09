@@ -7,7 +7,7 @@ nunjucks.configure(path.join(__dirname, '../templates'))
 export const incomingCall = functions.https.onRequest((request, response) => {
   const { params } = request;
 
-  functions.logger.info({
+  functions.logger.info("params", {
     CallSid: params.CallSid,
     AccountSid: params.AccountSid,
     From: params.From,
