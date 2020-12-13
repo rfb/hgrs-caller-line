@@ -28,7 +28,7 @@ export const incomingCall = functions.https.onRequest(async (request, response) 
     ToCity: params.ToCity,
     ToState: params.ToState,
     ToZip: params.ToZip,
-    ToCountry: params.ToCountry
+    ToCountry: params.ToCountry,
   });
 
   const greetingAudio = await storage().bucket().file('audio/welcomeAudio.mp3').getSignedUrl({
