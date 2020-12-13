@@ -1,10 +1,13 @@
 import * as functions from 'firebase-functions';
+import { storage, initializeApp } from 'firebase-admin';
 import * as nunjucks from 'nunjucks';
 import * as path from 'path';
 
+initializeApp()
 nunjucks.configure(path.join(__dirname, '../templates'))
 
-export const incomingCall = functions.https.onRequest((request, response) => {
+
+export const incomingCall = functions.https.onRequest(async (request, response) => {
   const { params } = request;
 
   functions.logger.info("params", {
@@ -28,8 +31,14 @@ export const incomingCall = functions.https.onRequest((request, response) => {
     ToCountry: params.ToCountry
   });
 
+  const greetingAudio = await storage().bucket().file('audio/welcomeAudio.mp3').getSignedUrl({
+    version: 'v2',
+    action: 'read',
+    expires: Date.now() + 15 * 60 * 1000, // 15 minutes
+  })
+
   response.contentType('application/xml');
-  response.send(nunjucks.render('incomingCall.njk'));
+  response.send(nunjucks.render('incomingCall.njk', { greetingAudio }));
 });
 
 export const recordingComplete = functions.https.onRequest((_request, response) => {
